@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions
 class Base_piliang(object):
     kewods = '粽子节福利哦!打开支付宝首页搜索“527479816” 立即领红包'
 
-    def __init__(self,url,web_type):
+    def __init__(self,url,web_type = 2 ):
         self.url = url
         if web_type == 2:
             self.browser = webdriver.Chrome(executable_path="D:\chromedriver")
