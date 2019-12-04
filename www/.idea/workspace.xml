@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48d5caf9-d39c-4628-8780-780e10f7cdb3" name="默认的" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/damo/geckodriver.log" beforeDir="false" afterPath="$PROJECT_DIR$/damo/geckodriver.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/damo/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/damo/demo.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -61,14 +60,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="demo_requests_login.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="demo_requests_login.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work_plan/demo_requests_login.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+            <state relative-caret-position="361">
+              <caret line="31" column="69" selection-start-line="31" selection-start-column="69" selection-end-line="31" selection-end-column="69" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="demo.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/damo/demo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
             </state>
           </provider>
         </entry>
@@ -114,7 +122,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/ppython/www/__init__.py" />
-        <option value="$PROJECT_DIR$/damo/demo.py" />
         <option value="$PROJECT_DIR$/damo/demo_import.py" />
         <option value="$PROJECT_DIR$/ppython/core/process.py" />
         <option value="$PROJECT_DIR$/ppython/www/test.py" />
@@ -126,6 +133,7 @@
         <option value="$PROJECT_DIR$/damo/jzic_piliang.py" />
         <option value="$PROJECT_DIR$/damo/今日头条_piliang.py" />
         <option value="$PROJECT_DIR$/work_plan/demo_requests_login.py" />
+        <option value="$PROJECT_DIR$/damo/demo.py" />
       </list>
     </option>
   </component>
@@ -157,6 +165,11 @@
             <path>
               <item name="www" type="b2602c69:ProjectViewProjectNode" />
               <item name="www" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="www" type="b2602c69:ProjectViewProjectNode" />
+              <item name="www" type="462c0819:PsiDirectoryNode" />
+              <item name="damo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="www" type="b2602c69:ProjectViewProjectNode" />
@@ -388,8 +401,8 @@
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" anchor="bottom" id="运行" order="7" sideWeight="0.73333335" visible="true" weight="0.36550975" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info anchor="bottom" id="运行" order="7" sideWeight="0.73333335" visible="true" weight="0.36550975" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -579,13 +592,6 @@
     <entry file="file://$PROJECT_DIR$/damo/QR.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/damo/demo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="28" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/damo/demo_import.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -679,11 +685,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/work_plan/demo_requests_login.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+        <state relative-caret-position="361">
+          <caret line="31" column="69" selection-start-line="31" selection-start-column="69" selection-end-line="31" selection-end-column="69" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/damo/demo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
