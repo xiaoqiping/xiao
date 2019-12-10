@@ -9,11 +9,13 @@ import xlsxwriter
 import datetime
 from datetime import timedelta
 
+import getpass
+
 def LoginByPost():
     #c创建session会话
     s=requests.session()
     account =  input("请输入账号");#'xiaoqiping'
-    password = input("请输入密码");#'KBkx05jt';
+    password = getpass.getpass("请输入密码");#'KBkx05jt';
 
     loginUrl='http://pms.jzic.com/index.php?m=user&f=login'
     login_res = s.get(loginUrl)
