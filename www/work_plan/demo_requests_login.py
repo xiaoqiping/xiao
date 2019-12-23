@@ -14,8 +14,8 @@ import getpass
 def LoginByPost():
     #c创建session会话
     s=requests.session()
-    account =  input("请输入账号");#'xiaoqiping'
-    password = getpass.getpass("请输入密码");#'KBkx05jt';
+    account =  'xiaoqiping';#input("请输入账号");
+    password = 'KBkx05jt';#getpass.getpass("请输入密码");
 
     loginUrl='http://pms.jzic.com/index.php?m=user&f=login'
     login_res = s.get(loginUrl)
