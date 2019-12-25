@@ -11,11 +11,15 @@ class mysql(object):
         self.port = port
 
     def connect(self):
-        self.conn = pymysql.connect(host=self.host, port=self.port, user=self.user, password=self.password, db=self.db,charset=self.charset)
-        self.cursor = self.conn.cursor()
+        try:
+            self.conn.ping(reconnect=True)
+        except:
+            self.conn = pymysql.connect(host=self.host, port=self.port, user=self.user, password=self.password,db=self.db, charset=self.charset)
+            self.cursor = self.conn.cursor()
+
 
     def close(self):
-        self.cursor.close()
+        #self.cursor.close()
         self.conn.close()
 
     def get_one(self, sql, params=()):
@@ -26,6 +30,7 @@ class mysql(object):
             result = self.cursor.fetchone()
             self.close()
         except Exception as e:
+            self.close()
             print(e)
         return result
 
@@ -37,24 +42,24 @@ class mysql(object):
             list_data = self.cursor.fetchall()
             self.close()
         except Exception as e:
+            self.close()
             print(e)
         return list_data
 
     def insert(self, sql, params=()):
-        return self.__edit(sql, params)
+        return self.edit(sql, params)
 
     def update(self, sql, params=()):
-        return self.__edit(sql, params)
+        return self.edit(sql, params)
 
     def delete(self, sql, params=()):
-        return self.__edit(sql, params)
+        return self.edit(sql, params)
 
-    def __edit(self, sql, params):
+    def edit(self, sql, params):
         count = 0
         try:
             self.connect()
             if isinstance(params, list):
-
                 print(params)
                 print('批量插入')
                 count = self.cursor.executemany(sql, params)
@@ -64,5 +69,7 @@ class mysql(object):
             self.conn.commit()
             self.close()
         except Exception as e:
+            self.close()
             print(e)
+            return None
         return count
