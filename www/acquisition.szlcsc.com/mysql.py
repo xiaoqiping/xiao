@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
 import pymysql
 class mysql(object):
     conn = None
@@ -60,11 +63,8 @@ class mysql(object):
         try:
             self.connect()
             if isinstance(params, list):
-                print(params)
-                print('批量插入')
                 count = self.cursor.executemany(sql, params)
             else:
-                print('单条插入')
                 count = self.cursor.execute(sql, params)
             self.conn.commit()
             self.close()
