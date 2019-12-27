@@ -1,11 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/python3.8
 # -*- coding: UTF-8 -*-
 
 import pymysql
 class mysql(object):
     conn = None
 
-    def __init__(self, host='106.14.127.145', user='kaifa', password='yB8FtzFSlSa5QYE0vzd8', db='jzic_crawl_data', charset='utf8', port=3306):
+    def __init__(self, host='106.14.127.145', user='kaifa', password='yB8FtzFSlSa5QYE0vzd8', db='jzic_crawl_data_v2', charset='utf8', port=3306):
         self.host = host
         self.user = user
         self.password = password
@@ -16,14 +16,19 @@ class mysql(object):
     def connect(self):
         try:
             self.conn.ping(reconnect=True)
+            self.cursor = self.conn.cursor()
         except:
             self.conn = pymysql.connect(host=self.host, port=self.port, user=self.user, password=self.password,db=self.db, charset=self.charset)
             self.cursor = self.conn.cursor()
 
 
     def close(self):
+        if self.conn and self.cursor:
+            self.cursor.close()
+            self.conn.close()
+        return True
         #self.cursor.close()
-        self.conn.close()
+        #self.conn.close()
 
     def get_one(self, sql, params=()):
         result = None
@@ -63,6 +68,7 @@ class mysql(object):
         try:
             self.connect()
             if isinstance(params, list):
+                print(params)
                 count = self.cursor.executemany(sql, params)
             else:
                 count = self.cursor.execute(sql, params)

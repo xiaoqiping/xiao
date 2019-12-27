@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3.8
 # -*- coding: UTF-8 -*-
 
 import requests,json
@@ -9,6 +9,9 @@ import time
 import math
 import collections
 from datetime import timedelta
+
+import sys
+import os
 
 from mysql import mysql
 
@@ -135,13 +138,16 @@ def data_goodslist():
                 post_data['pageNumber']=ii
                 print(post_data)
                 try:
+                    # proxies = {
+                    #     "http": "112.95.205.2:9999",
+                    # }
+                    #proxies=proxies
                     r = requests.post(url, post_data,timeout=(6.05, 27.05))
                     r.raise_for_status()  # 如果响应状态码不是 200，就主动抛出异常
                 except requests.RequestException as e:
                     print(e)
                     continue
                 print("接口请求响应状态:"+str(r.status_code))
-
                 res = json.loads(r.text)
                 productRecordList = res['productRecordList']
                 #print(res['productRecordList'])
@@ -169,12 +175,14 @@ def data_goodslist():
                     #================================数据处理==================================
                     szlcsc_min_ladder_price = 0;
                     szlcsc_brand_id = 0
+                    spNumber = 0
                     # 库存为负数的时候默认为0
                     if(int(iii['stockNumber']) <=0):
                         iii['stockNumber']=0
                     #当具体价格不存在的时候默认为0
                     if(iii['productPriceList']):
-                        szlcsc_min_ladder_price = iii['productPriceList'][0]['productPrice']
+                        szlcsc_min_ladder_price = iii['productPriceList'][-1]['productPrice']
+                        spNumber= iii['productPriceList'][-1]['spNumber']
                     # 当匹品牌不存在的时候默认为0
                     if (iii['productGradePlateId']):
                         szlcsc_brand_id = int(iii['productGradePlateId'])
@@ -200,7 +208,7 @@ def data_goodslist():
                             'szlcsc_goods_package':db.conn.escape_string(iii['encapsulationModel']),
                             'szlcsc_sale_num': int(iii['encapsulateProductMinEncapsulationNumber']),
                             'szlcsc_sale_stock': int(iii['stockNumber']),
-                            'szlcsc_ladder_quantity': int(iii['theRatio']),
+                            'szlcsc_ladder_quantity': int(iii['theRatio'])*int(spNumber),
                             'szlcsc_min_ladder_price': szlcsc_min_ladder_price,
                             'from_url': db.conn.escape_string('https://item.szlcsc.com/'+str(iii['productId'])+'.html'),
                             'create_time': now,
@@ -291,10 +299,10 @@ def data_goodslist():
                         results = db.cursor.executemany(sql, inset_data)
                         if results == None:
                             # 创建异常对象
-                            ex = Exception("插入商品数据失败")
+                            ex = Exception("===================插入商品数据失败")
                             # 抛出异常对象
                             raise ex
-                        print('商品数据数据插入成功')
+                        print('===================商品数据数据插入成功')
                         if results !=None:
                             #价格变动日志插入
                             sql = "INSERT INTO cj_szlcsc_goods_price_change_log (`goods_id`,`is_first`, `quantity`, `price`, `change_time`) VALUES (%s, %s, %s, %s, %s);"
@@ -303,10 +311,10 @@ def data_goodslist():
                             results = db.cursor.executemany(sql, price_change_log_inset_data)
                             if results == None:
                                 # 创建异常对象
-                                ex = Exception("插入价格变动日志失败")
+                                ex = Exception("===================插入价格变动日志失败")
                                 # 抛出异常对象
                                 raise ex
-                        print('价格变动日志插入成功')
+                        print('===================价格变动日志插入成功')
                         # 库存变动日志插入
                         if results != None:
                             sql = "INSERT INTO cj_szlcsc_goods_stock_change_log (`goods_id`,`is_first`, `stock`, `change_time`) VALUES (%s, %s, %s, %s);"
@@ -315,10 +323,10 @@ def data_goodslist():
                             results = db.cursor.executemany(sql, stock_change_log_inset_data)
                             if results == None:
                                 # 创建异常对象
-                                ex = Exception("插入库存变动日志失败")
+                                ex = Exception("===================插入库存变动日志失败")
                                 # 抛出异常对象
                                 raise ex
-                        print('库存变动日志插入成功')
+                        print('===================库存变动日志插入成功')
                         # 销量变动日志插入
                         if results != None:
                             sql = "INSERT INTO cj_szlcsc_goods_sale_num_change_log (`goods_id`,`is_first`, `sale_num`, `change_time`) VALUES (%s, %s, %s, %s);"
@@ -327,39 +335,40 @@ def data_goodslist():
                             results = db.cursor.executemany(sql, sale_num_change_log_inset_data)
                             if results == None:
                                 # 创建异常对象
-                                ex = Exception("插入销量变动日志失败")
+                                ex = Exception("===================插入销量变动日志失败")
                                 # 抛出异常对象
                                 raise ex
-                        print('销量变动日志插入成功')
+                        print('===================销量变动日志插入成功')
 
                         db.conn.commit()
                         db.close()
                     except Exception  as result:
-                        print('数据插入异常',result)
+                        print('===================数据插入异常',result)
                         db.connect()
                         db.conn.rollback()
                         db.close()
                         exit()
 
-                category_page_sql = "UPDATE `cj_szlcsc_category` SET `page` =  `page`+1 WHERE(`id` = '" + str(i[0]) + "')"
+                category_page_sql = "UPDATE `cj_szlcsc_category` SET `page` =  `page`+1 ,`update_time`='"+str(now)+"'  WHERE(`id` = '" + str(i[0]) + "')"
                 category_page_results = db.update(category_page_sql, ())
                 if category_page_results == None:
                     print('==========================处理分页变更失败')
                     break
                 print('==========================处理分页变更成功')
-
+                sys.stdout.flush()
+                os.system("clear")
                 #处理完一页出具延迟10秒
                 print('==========================延时等待5秒钟再处理')
                 for n in range(5):
                     print("5秒倒计时==========================" + str(5 - n)),
                     time.sleep(1)
 
-            category_sql = "UPDATE `cj_szlcsc_category` SET `status` = '2' WHERE(`id` = '"+str(i[0])+"')"
+            category_sql = "UPDATE `cj_szlcsc_category` SET `status` = '2',`update_time`='"+str(now)+"'  WHERE(`id` = '"+str(i[0])+"')"
             category_results = db.update(category_sql,())
             if category_results == None:
                 print('==========================分类任务状态处理失败')
                 break
-            print('==========================分类任务变更成功，处理下一个分类')
+            print('=====================分类任务变更成功，处理下一个分类')
     except Exception  as result:
         print('==========================程序运行异常')
         print(result)
@@ -394,6 +403,6 @@ def szlcsc_goods_sale_where_in_arr(arr):
 #判断商品是否存在
 #def is_in_szlcsc_goods_sale_arr(arr, key):
 
-
+#data_category
 data_goodslist()
 #szlcsc_goods_sale_where_in_arr()

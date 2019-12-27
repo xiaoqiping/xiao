@@ -16,7 +16,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/www$mysql__1_.coverage" NAME="mysql (1) Coverage Results" MODIFIED="1577080678631" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/acquisition.szlcsc.com" />
-    <SUITE FILE_PATH="coverage/www$demo.coverage" NAME="demo Coverage Results" MODIFIED="1577328370276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/class" />
+    <SUITE FILE_PATH="coverage/www$demo.coverage" NAME="demo Coverage Results" MODIFIED="1577425745523" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/class" />
     <SUITE FILE_PATH="coverage/www$process.coverage" NAME="process Coverage Results" MODIFIED="1575012366599" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ppython/core" />
     <SUITE FILE_PATH="coverage/www$_piliang.coverage" NAME="今日头条_piliang Coverage Results" MODIFIED="1575278949165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/damo" />
     <SUITE FILE_PATH="coverage/www$demo_xlsxwriter.coverage" NAME="demo_xlsxwriter Coverage Results" MODIFIED="1575529618932" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/damo" />
@@ -26,15 +26,15 @@
     <SUITE FILE_PATH="coverage/www$demo_requests_login__1_.coverage" NAME="demo_requests_login (1) Coverage Results" MODIFIED="1577062533819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/work_plan" />
     <SUITE FILE_PATH="coverage/www$php_python__1_.coverage" NAME="php_python (1) Coverage Results" MODIFIED="1575016350401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PPython-again-master/core" />
     <SUITE FILE_PATH="coverage/www$mlcc_goods_series_module_selenium_chrome.coverage" NAME="mlcc_goods_series_module_selenium_chrome Coverage Results" MODIFIED="1577072151052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/spider" />
-    <SUITE FILE_PATH="coverage/www$demo_requests_login.coverage" NAME="demo_requests_login Coverage Results" MODIFIED="1577329506446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/acquisition.szlcsc.com" />
+    <SUITE FILE_PATH="coverage/www$demo_requests_login.coverage" NAME="demo_requests_login Coverage Results" MODIFIED="1577429500044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/acquisition.szlcsc.com" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="mysql.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/acquisition.szlcsc.com/mysql.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="17" lean-forward="true" selection-start-column="17" selection-end-column="17" />
+            <state relative-caret-position="133">
+              <caret line="7" column="115" selection-start-line="7" selection-start-column="115" selection-end-line="7" selection-end-column="115" />
             </state>
           </provider>
         </entry>
@@ -42,10 +42,10 @@
       <file leaf-file-name="demo_requests_login.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/acquisition.szlcsc.com/demo_requests_login.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-271">
-              <caret line="325" column="55" selection-start-line="325" selection-start-column="55" selection-end-line="325" selection-end-column="55" />
+            <state relative-caret-position="284">
+              <caret line="206" column="48" selection-start-line="206" selection-start-column="48" selection-end-line="206" selection-end-column="48" />
               <folding>
-                <element signature="e#43#63#0" expanded="true" />
+                <element signature="e#46#66#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -54,8 +54,8 @@
       <file leaf-file-name="demo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/class/demo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
+            <state relative-caret-position="95">
+              <caret line="5" column="64" lean-forward="true" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -143,6 +143,9 @@
       <find>iii['productPriceList'][0]['productPrice']</find>
       <find>productGradePlateId</find>
       <find>szlcsc_brand_id</find>
+      <find>timedelta</find>
+      <find>datetime</find>
+      <find>collections</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -168,8 +171,9 @@
         <option value="$PROJECT_DIR$/work_plan/demo_requests_login.py" />
         <option value="$PROJECT_DIR$/spider/mlcc_goods_series_module_selenium_chrome.py" />
         <option value="$PROJECT_DIR$/ppython/core/redis.py" />
-        <option value="$PROJECT_DIR$/acquisition.szlcsc.com/mysql.py" />
+        <option value="$PROJECT_DIR$/acquisition.szlcsc.com/mysql_1.py" />
         <option value="$PROJECT_DIR$/class/demo.py" />
+        <option value="$PROJECT_DIR$/acquisition.szlcsc.com/mysql.py" />
         <option value="$PROJECT_DIR$/acquisition.szlcsc.com/demo_requests_login.py" />
       </list>
     </option>
@@ -184,8 +188,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-7" />
-    <option name="y" value="10" />
+    <option name="x" value="-55" />
+    <option name="y" value="160" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -252,8 +256,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\pywww\www\ppython\core" />
       <recent name="D:\pywww\www\acquisition.szlcsc.com" />
+      <recent name="D:\pywww\www\ppython\core" />
       <recent name="D:\pywww" />
       <recent name="D:\pywww\www\work_plan" />
       <recent name="D:\pywww\www\PPython-again-master\core" />
@@ -271,7 +275,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.demo">
+  <component name="RunManager" selected="Python.demo_requests_login">
     <configuration name="demo" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="www" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -398,18 +402,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="调试" order="7" sideWeight="0.49895832" weight="0.329718" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.19349681" side_tool="true" visible="true" weight="0.49721915" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.1945629" side_tool="true" visible="true" weight="0.3337041" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" anchor="bottom" id="运行" order="7" sideWeight="0.8065032" visible="true" weight="0.49721915" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2585288" />
+      <window_info active="true" anchor="bottom" id="运行" order="7" sideWeight="0.8054371" visible="true" weight="0.3337041" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26385927" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -439,28 +443,16 @@
           <url>file://$PROJECT_DIR$/PPython-again-master/core/php_python.py</url>
           <line>3</line>
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/acquisition.szlcsc.com/demo_requests_login.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/damo/demo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/damo/setup.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/damo/demo2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="14" lean-forward="true" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/damo/demo_循环.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -682,29 +674,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/acquisition.szlcsc.com/mysql.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="17" lean-forward="true" selection-start-column="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/signal.pyi">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/collections/__init__.pyi">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/django/db/backends/sqlite3/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="399" column="26" lean-forward="true" selection-start-line="399" selection-start-column="26" selection-end-line="399" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/class/demo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
+        <state relative-caret-position="95">
+          <caret line="5" column="64" lean-forward="true" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/acquisition.szlcsc.com/mysql_1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="21" column="37" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/acquisition.szlcsc.com/mysql.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="115" selection-start-line="7" selection-start-column="115" selection-end-line="7" selection-end-column="115" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/acquisition.szlcsc.com/demo_requests_login.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-271">
-          <caret line="325" column="55" selection-start-line="325" selection-start-column="55" selection-end-line="325" selection-end-column="55" />
+        <state relative-caret-position="284">
+          <caret line="206" column="48" selection-start-line="206" selection-start-column="48" selection-end-line="206" selection-end-column="48" />
           <folding>
-            <element signature="e#43#63#0" expanded="true" />
+            <element signature="e#46#66#0" expanded="true" />
           </folding>
         </state>
       </provider>
