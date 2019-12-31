@@ -129,6 +129,10 @@ def data_goodslist():
             print("=============================正在处理分类："+str(i[2])+"总共******"+str(pagenun)+"******页，每页30条")
             p =i[10]+1
             for ii in  range(p,pagenun+1):
+                nf = open("/home/wwwroot/www/log.txt", "w")
+                nf.write(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                nf.close()
+
                 print("=============================正在处理分类：" + str(i[2]) + "正在处理第******"+str(ii)+"******页的数据")
                 #请求参数
                 post_data = {}
@@ -369,6 +373,14 @@ def data_goodslist():
                 print('==========================分类任务状态处理失败')
                 break
             print('=====================分类任务变更成功，处理下一个分类')
+
+        task_sql = "UPDATE `cj_szlcsc_task` SET `status` = '2',`update_time`='" + str(
+            now) + "'  WHERE(`task_id` = '" + str(szlcsc_task_info[0]) + "')"
+        task_results = db.update(task_sql, ())
+        if task_results == None:
+            print('==========================任务状态处理失败')
+
+        print('=====================任务变更成功，处理完成')
     except Exception  as result:
         print('==========================程序运行异常')
         print(result)
@@ -398,11 +410,12 @@ def szlcsc_goods_sale_where_in_arr(arr):
     #print ('430523' in tmp.keys())
     return tmp
 
+if __name__ == '__main__':
+    # 判断商品是否存在
+    # def is_in_szlcsc_goods_sale_arr(arr, key):
+
+    # data_category
+    data_goodslist()
+    # szlcsc_goods_sale_where_in_arr()
 
 
-#判断商品是否存在
-#def is_in_szlcsc_goods_sale_arr(arr, key):
-
-#data_category
-data_goodslist()
-#szlcsc_goods_sale_where_in_arr()
