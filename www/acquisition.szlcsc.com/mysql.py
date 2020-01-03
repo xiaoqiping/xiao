@@ -68,7 +68,6 @@ class mysql(object):
         try:
             self.connect()
             if isinstance(params, list):
-                print(params)
                 count = self.cursor.executemany(sql, params)
             else:
                 count = self.cursor.execute(sql, params)

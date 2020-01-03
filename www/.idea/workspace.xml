@@ -4,7 +4,7 @@
     <list default="true" id="48d5caf9-d39c-4628-8780-780e10f7cdb3" name="默认的" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/acquisition.szlcsc.com/demo_requests_login.py" beforeDir="false" afterPath="$PROJECT_DIR$/acquisition.szlcsc.com/demo_requests_login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/class/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acquisition.szlcsc.com/mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/acquisition.szlcsc.com/mysql.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,15 +25,15 @@
     <SUITE FILE_PATH="coverage/www$demo_requests_login__1_.coverage" NAME="demo_requests_login (1) Coverage Results" MODIFIED="1577062533819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/work_plan" />
     <SUITE FILE_PATH="coverage/www$php_python__1_.coverage" NAME="php_python (1) Coverage Results" MODIFIED="1575016350401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PPython-again-master/core" />
     <SUITE FILE_PATH="coverage/www$mlcc_goods_series_module_selenium_chrome.coverage" NAME="mlcc_goods_series_module_selenium_chrome Coverage Results" MODIFIED="1577072151052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/spider" />
-    <SUITE FILE_PATH="coverage/www$demo_requests_login.coverage" NAME="demo_requests_login Coverage Results" MODIFIED="1577667459424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/acquisition.szlcsc.com" />
+    <SUITE FILE_PATH="coverage/www$demo_requests_login.coverage" NAME="demo_requests_login Coverage Results" MODIFIED="1577948813296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/acquisition.szlcsc.com" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="mysql.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/acquisition.szlcsc.com/mysql.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="115" selection-start-line="7" selection-start-column="115" selection-end-line="7" selection-end-column="115" />
+            <state relative-caret-position="304">
+              <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -41,8 +41,8 @@
       <file leaf-file-name="demo_requests_login.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/acquisition.szlcsc.com/demo_requests_login.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="382" column="48" selection-start-line="382" selection-start-column="48" selection-end-line="382" selection-end-column="48" />
+            <state relative-caret-position="433">
+              <caret line="512" lean-forward="true" selection-start-line="512" selection-end-line="512" />
               <folding>
                 <element signature="e#46#66#0" expanded="true" />
               </folding>
@@ -145,6 +145,8 @@
       <find>timedelta</find>
       <find>datetime</find>
       <find>collections</find>
+      <find>价格</find>
+      <find>inset_tmp</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -171,8 +173,8 @@
         <option value="$PROJECT_DIR$/spider/mlcc_goods_series_module_selenium_chrome.py" />
         <option value="$PROJECT_DIR$/ppython/core/redis.py" />
         <option value="$PROJECT_DIR$/acquisition.szlcsc.com/mysql_1.py" />
-        <option value="$PROJECT_DIR$/acquisition.szlcsc.com/mysql.py" />
         <option value="$PROJECT_DIR$/class/demo.py" />
+        <option value="$PROJECT_DIR$/acquisition.szlcsc.com/mysql.py" />
         <option value="$PROJECT_DIR$/acquisition.szlcsc.com/demo_requests_login.py" />
       </list>
     </option>
@@ -402,17 +404,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="调试" order="7" sideWeight="0.49895832" weight="0.329718" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.19509594" side_tool="true" visible="true" weight="0.07897664" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.19669509" side_tool="true" visible="true" weight="0.243604" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="运行" order="7" sideWeight="0.80490404" weight="0.36262515" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26918977" />
+      <window_info anchor="bottom" id="运行" order="7" sideWeight="0.8033049" weight="0.2458287" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.271855" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -441,11 +442,6 @@
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/PPython-again-master/core/php_python.py</url>
           <line>3</line>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/acquisition.szlcsc.com/demo_requests_login.py</url>
-          <line>3</line>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="3" />
@@ -641,24 +637,10 @@
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/collections/__init__.pyi">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/django/db/backends/sqlite3/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="399" column="26" lean-forward="true" selection-start-line="399" selection-start-column="26" selection-end-line="399" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/acquisition.szlcsc.com/mysql_1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
           <caret line="21" column="37" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acquisition.szlcsc.com/mysql.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="115" selection-start-line="7" selection-start-column="115" selection-end-line="7" selection-end-column="115" />
         </state>
       </provider>
     </entry>
@@ -699,10 +681,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/django/db/backends/sqlite3/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="396" column="49" lean-forward="true" selection-start-line="396" selection-start-column="49" selection-end-line="396" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/acquisition.szlcsc.com/mysql.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/acquisition.szlcsc.com/demo_requests_login.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="382" column="48" selection-start-line="382" selection-start-column="48" selection-end-line="382" selection-end-column="48" />
+        <state relative-caret-position="433">
+          <caret line="512" lean-forward="true" selection-start-line="512" selection-end-line="512" />
           <folding>
             <element signature="e#46#66#0" expanded="true" />
           </folding>

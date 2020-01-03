@@ -38,6 +38,10 @@ def data_category():
         print("任务不存在")
         return False;
 
+    cj_szlcsc_category_list = db.get_one("SELECT * FROM `cj_szlcsc_category` where category_level = 2 and status = 1 and task_id = " + str(szlcsc_task_info[0]) + "  LIMIT 1", params=())
+    if cj_szlcsc_category_list :
+        print("已经更新为当前版本分类数据")
+        return False;
     #分类数据
     category= [];
     for i in category_level_1:
@@ -161,6 +165,7 @@ def data_goodslist():
                     print("当前分页没有可处理的商品数据，跳出")
                     break
 
+                #=============================不存在当前型号============================
                 #新增数据数组
                 inset_data = []
                 #价格变动日志数组
@@ -169,8 +174,17 @@ def data_goodslist():
                 stock_change_log_inset_data = []
                 # 销量变动日志数组
                 sale_num_change_log_inset_data = []
+                # =============================存在当前型号============================
+                # 更新数据数组
+                update_data = []
+                # 价格变动日志数组
+                price_change_log_update_data = []
+                # 库存变动日志数组
+                stock_change_log_update_data = []
+                # 销量变动日志数组
+                sale_num_change_log_update_data = []
 
-                j = 1;
+                j = 1;#当前处理条数
                 productId_arr = data_arr_key(productRecordList,'productId')
                 szlcsc_goods_sale_arr = szlcsc_goods_sale_where_in_arr(productId_arr)
                 for iii in productRecordList:
@@ -216,23 +230,20 @@ def data_goodslist():
                             'szlcsc_min_ladder_price': szlcsc_min_ladder_price,
                             'from_url': db.conn.escape_string('https://item.szlcsc.com/'+str(iii['productId'])+'.html'),
                             'create_time': now,
-                            'task_id': '1',#szlcsc_task_info[0],
-                            'szlcsc_desc':'1',# '新增型号',
+                            'task_id':szlcsc_task_info[0],
+                            'szlcsc_desc':'新增型号',# '新增型号',
                         }
-
                         #print(tuple(list(inset_tmp.values())))
                         inset_data.append(tuple(list(inset_tmp.values())))
-
                         #价格日志
                         price_change_log_inset_tmp= {
                             'szlcsc_goods_id': int(iii['productId']),
                             'is_first': 1,
-                            'quantity': int(iii['theRatio']),
+                            'quantity': inset_tmp['szlcsc_ladder_quantity'],
                             'price': szlcsc_min_ladder_price,
                             'change_time': now,
                         }
                         price_change_log_inset_data.append(tuple(list(price_change_log_inset_tmp.values())))
-
                         # 库存日志
                         stock_change_log_inset_tmp = {
                             'szlcsc_goods_id': int(iii['productId']),
@@ -241,7 +252,6 @@ def data_goodslist():
                             'change_time': now,
                         }
                         stock_change_log_inset_data.append(tuple(list(stock_change_log_inset_tmp.values())))
-
                         # 销量日志
                         sale_num_change_log_inset_tmp = {
                             'szlcsc_goods_id': int(iii['productId']),
@@ -256,39 +266,60 @@ def data_goodslist():
                         continue
                     else:
                         print("szlcsc_sale_id:" + str(szlcsc_goods_sale_info[0]) + ":数据更新")
-                        continue
-                        # try:
-                        #     update_tmp = {
-                        #         'szlcsc_goods_module_no': db.escape_string(iii['productModel']),
-                        #         'szlcsc_goods_name': ii['remarkPrefix'] + iii['lightProductIntro'],
-                        #         'szlcsc_goods_no': iii['lightProductCode'],
-                        #         'szlcsc_category_id': iii['productTypeCode'],
-                        #         'szlcsc_category_name': iii['productType'],
-                        #         'szlcsc_brand_id': iii['productGradePlateId'],
-                        #         'szlcsc_brand_name': iii['productGradePlateName'],
-                        #         'szlcsc_goods_unit': iii['productMinEncapsulationUnit'],
-                        #         'szlcsc_min_packing': iii['productMinEncapsulationNumber'],
-                        #         'szlcsc_goods_package': iii['encapsulationModel'],
-                        #         'szlcsc_sale_num': iii['encapsulateProductMinEncapsulationNumber'],
-                        #         'szlcsc_sale_stock': iii['stockNumber'],
-                        #         'szlcsc_ladder_quantity': iii['theRatio'],
-                        #         'szlcsc_min_ladder_price': iii['productPriceList'][0]['productPrice'],
-                        #         'update_time': now,
-                        #         'task_id': szlcsc_task_info[0],
-                        #         'szlcsc_desc': '型号更新',
-                        #     }
-                        #     sql = ""
-                        #     results = db.insert(sql, inset_data)
-                        #     print(results)
-                        #     if results == None:
-                        #         # 创建异常对象
-                        #         ex = Exception("插入商品数据失败")
-                        #         # 抛出异常对象
-                        #         raise ex
-                        # except Exception  as result:
-                        #     print(result)
-                    print("===========================处理完成")
-                    j+=1
+                        update_tmp = {
+                            'szlcsc_goods_module_no': db.conn.escape_string(iii['productModel']),
+                            'szlcsc_goods_name': db.conn.escape_string(iii['remarkPrefix'] + iii['lightProductIntro']),
+                            'szlcsc_goods_no': db.conn.escape_string(iii['lightProductCode']),
+                            'szlcsc_category_id': int(iii['productTypeCode']),
+                            'szlcsc_category_name': db.conn.escape_string(iii['productType']),
+                            'szlcsc_brand_id': szlcsc_brand_id,
+                            'szlcsc_brand_name': db.conn.escape_string(iii['productGradePlateName']),
+                            'szlcsc_goods_unit': iii['productMinEncapsulationUnit'],
+                            'szlcsc_min_packing': int(iii['productMinEncapsulationNumber']),
+                            'szlcsc_goods_package': db.conn.escape_string(iii['encapsulationModel']),
+                            'szlcsc_sale_num': int(iii['encapsulateProductMinEncapsulationNumber']),
+                            'szlcsc_sale_stock': int(iii['stockNumber']),
+                            'szlcsc_ladder_quantity': int(iii['theRatio']) * int(spNumber),
+                            'szlcsc_min_ladder_price': szlcsc_min_ladder_price,
+                            'update_time': now,
+                            'task_id': szlcsc_task_info[0],  # szlcsc_task_info[0],
+                            'szlcsc_desc': '型号更新',  # '新增型号',
+                            'szlcsc_sale_id': szlcsc_goods_sale_info[0],
+                        }
+                        # print(tuple(list(inset_tmp.values())))
+                        update_data.append(tuple(list(update_tmp.values())))
+                        if (szlcsc_goods_sale_info[14] != update_tmp['szlcsc_ladder_quantity'] or float(szlcsc_goods_sale_info[15]) != float(update_tmp['szlcsc_min_ladder_price'])):
+                            # 价格日志
+                            price_change_log_update_tmp = {
+                                'szlcsc_goods_id': int(iii['productId']),
+                                'is_first': 0,
+                                'quantity': update_tmp['szlcsc_ladder_quantity'],
+                                'price': szlcsc_min_ladder_price,
+                                'change_time': now,
+                            }
+                            price_change_log_update_data.append(tuple(list(price_change_log_update_tmp.values())))
+                        if int(szlcsc_goods_sale_info[13]) != int(update_tmp['szlcsc_sale_stock']):
+                            # 库存日志
+                            stock_change_log_update_tmp = {
+                                'szlcsc_goods_id': int(iii['productId']),
+                                'is_first': 0,
+                                'stock': int(iii['stockNumber']),
+                                'change_time': now,
+                            }
+                            stock_change_log_update_data.append(tuple(list(stock_change_log_update_tmp.values())))
+                        if int(szlcsc_goods_sale_info[13]) != int(update_tmp['szlcsc_sale_stock']):
+                            # 销量日志
+                            sale_num_change_log_update_tmp = {
+                                'szlcsc_goods_id': int(iii['productId']),
+                                'is_first': 0,
+                                'sale_num': int(iii['encapsulateProductMinEncapsulationNumber']),
+                                'change_time': now,
+                            }
+                            sale_num_change_log_update_data.append(tuple(list(sale_num_change_log_update_tmp.values())))
+                        print("===========================为更新型号追加到插入队列中")
+                    print("===========================数据处理完成")
+                    j+=1#当前处理条数加一
+
                 #存在新增型号
                 if len(inset_data) > 0:
                     try:
@@ -353,6 +384,72 @@ def data_goodslist():
                         db.close()
                         exit()
 
+                #存在更新数据
+                if len(update_data) > 0:
+                    try:
+                        db.connect()
+                        # 商品数据更新
+                        sale_sql = "update cj_szlcsc_goods_sale set " \
+                                   "szlcsc_goods_module_no=%s,szlcsc_goods_name=%s,szlcsc_goods_no=%s,szlcsc_category_id=%s,szlcsc_category_name=%s,szlcsc_brand_id=%s,szlcsc_brand_name=%s" \
+                                   ",szlcsc_goods_unit=%s,szlcsc_min_packing=%s,szlcsc_goods_package=%s,szlcsc_sale_num=%s,szlcsc_sale_stock=%s,szlcsc_ladder_quantity=%s,szlcsc_min_ladder_price=%s" \
+                                   ",update_time=%s,task_id=%s,szlcsc_desc=%s" \
+                                   " where (`szlcsc_sale_id` = %s)"
+                        results = db.cursor.executemany(sale_sql,update_data)
+                        print(update_data)
+                        if results == None:
+                            # 创建异常对象
+                            ex = Exception("更新商品数据失败")
+                            # 抛出异常对象
+                            raise ex
+                        print('===================更新商品数据成功')
+
+                        if results !=None and len(price_change_log_update_data) > 0:
+                            #价格变动日志插入
+                            sql = "INSERT INTO cj_szlcsc_goods_price_change_log (`goods_id`,`is_first`, `quantity`, `price`, `change_time`) VALUES (%s, %s, %s, %s, %s);"
+                            print(price_change_log_update_data)
+                            #results = db.insert(sql, price_change_log_update_data)
+                            results = db.cursor.executemany(sql, price_change_log_update_data)
+                            if results == None:
+                                # 创建异常对象
+                                ex = Exception("===================插入价格变动日志失败")
+                                # 抛出异常对象
+                                raise ex
+                            print('===================更新型号价格变动日志插入成功')
+
+                        # 库存变动日志插入
+                        if results != None and len(stock_change_log_update_data) > 0:
+                            sql = "INSERT INTO cj_szlcsc_goods_stock_change_log (`goods_id`,`is_first`, `stock`, `change_time`) VALUES (%s, %s, %s, %s);"
+                            print(stock_change_log_update_data)
+                            # results = db.insert(sql, stock_change_log_update_data)
+                            results = db.cursor.executemany(sql, stock_change_log_update_data)
+                            if results == None:
+                                # 创建异常对象
+                                ex = Exception("===================插入库存变动日志失败")
+                                # 抛出异常对象
+                                raise ex
+                            print('===================更新型号库存变动日志插入成功')
+                        # 销量变动日志插入
+                        if results != None and len(sale_num_change_log_update_data) > 0:
+                            sql = "INSERT INTO cj_szlcsc_goods_sale_num_change_log (`goods_id`,`is_first`, `sale_num`, `change_time`) VALUES (%s, %s, %s, %s);"
+                            print(stock_change_log_update_data)
+                            # results = db.insert(sql, sale_num_change_log_update_data)
+                            results = db.cursor.executemany(sql, sale_num_change_log_update_data)
+                            if results == None:
+                                # 创建异常对象
+                                ex = Exception("===================插入销量变动日志失败")
+                                # 抛出异常对象
+                                raise ex
+                            print('===================更新型号销量变动日志插入成功')
+
+                        db.conn.commit()
+                        db.close()
+                    except Exception  as result:
+                        print('===================数据更新异常', result)
+                        db.connect()
+                        db.conn.rollback()
+                        db.close()
+                        exit()
+
                 category_page_sql = "UPDATE `cj_szlcsc_category` SET `page` =  `page`+1 ,`update_time`='"+str(now)+"'  WHERE(`id` = '" + str(i[0]) + "')"
                 category_page_results = db.update(category_page_sql, ())
                 if category_page_results == None:
@@ -363,8 +460,8 @@ def data_goodslist():
                 os.system("clear")
                 #处理完一页出具延迟10秒
                 print('==========================延时等待5秒钟再处理')
-                for n in range(5):
-                    print("5秒倒计时==========================" + str(5 - n)),
+                for n in range(3):
+                    print("3秒倒计时==========================" + str(3 - n)),
                     time.sleep(1)
 
             category_sql = "UPDATE `cj_szlcsc_category` SET `status` = '2',`update_time`='"+str(now)+"'  WHERE(`id` = '"+str(i[0])+"')"
@@ -414,7 +511,7 @@ if __name__ == '__main__':
     # 判断商品是否存在
     # def is_in_szlcsc_goods_sale_arr(arr, key):
 
-    # data_category
+    data_category()
     data_goodslist()
     # szlcsc_goods_sale_where_in_arr()
 
