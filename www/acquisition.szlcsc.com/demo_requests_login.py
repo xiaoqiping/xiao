@@ -18,6 +18,28 @@ from mysql import mysql
 #d当前时间
 now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+#任务处理
+def cj_szlcsc_task():
+    db = mysql()
+    # 查询版本信息
+    szlcsc_task_info = db.get_one("SELECT * FROM `cj_szlcsc_task` where status = 1 ORDER BY `task_id` DESC LIMIT 1",params=())
+    if szlcsc_task_info:
+        print("存在未处理完的任务继续处理")
+    else:
+        try:
+            inset_data = ('立创数据采集', '立创数据采集系统自动新增任务', now, 1)
+            sql = "INSERT INTO cj_szlcsc_task (`name`,`desc`, `update_time`, `status`) VALUES (%s, %s, %s, %s);"
+            results = db.edit(sql, inset_data)
+            if results == None:
+                # 创建异常对象
+                ex = Exception("===================新增任务失败")
+                # 抛出异常对象
+                raise ex
+        except Exception  as result:
+            print('===================新增任务异常异常', result)
+            exit()
+        print('===================新增任务成功')
+
 def data_category():
     db = mysql()
 
@@ -133,9 +155,9 @@ def data_goodslist():
             print("=============================正在处理分类："+str(i[2])+"总共******"+str(pagenun)+"******页，每页30条")
             p =i[10]+1
             for ii in  range(p,pagenun+1):
-                nf = open("/home/wwwroot/www/log.txt", "w")
-                nf.write(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                nf.close()
+                # nf = open("/home/wwwroot/www/log.txt", "w")
+                # nf.write(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                # nf.close()
 
                 print("=============================正在处理分类：" + str(i[2]) + "正在处理第******"+str(ii)+"******页的数据")
                 #请求参数
@@ -510,7 +532,7 @@ def szlcsc_goods_sale_where_in_arr(arr):
 if __name__ == '__main__':
     # 判断商品是否存在
     # def is_in_szlcsc_goods_sale_arr(arr, key):
-
+    cj_szlcsc_task()
     data_category()
     data_goodslist()
     # szlcsc_goods_sale_where_in_arr()
