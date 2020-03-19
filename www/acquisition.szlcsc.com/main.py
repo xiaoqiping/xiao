@@ -15,7 +15,7 @@ import hashlib
 
 def main():
     try:
-        crawl_url("face+mask", 1)
+        crawl_url("face+mask", 12)
     except:
         print('main:' + traceback.format_exc())
 
