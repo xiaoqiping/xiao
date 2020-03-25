@@ -15,14 +15,14 @@ import hashlib
 
 def main():
     try:
-        crawl_url("face+mask", 1)
+        crawl_url("mask", 1212)
     except:
         print('main:' + traceback.format_exc())
 
 def crawl_url(keyworks, start):
     browser = False
     try:
-        url = 'https://sourcing.alibaba.com/rfq_search_list.htm?spm=a2700.8073608.1998677539.4.724e65aa3w01bd&searchText=%s&openTime=3i' % keyworks
+        url = 'https://sourcing.alibaba.com/rfq_search_list.htm?spm=a2700.8073608.1998677539.2.60c565aasDkd3v&searchText=%s&openTime=24h' % keyworks
         options = Options()
         options.add_argument('--headless')
         browser = webdriver.Firefox(executable_path = 'D:/geckodriver.exe', options=options)
@@ -90,11 +90,11 @@ def wirte_mysql(datas):
         cursor = db.cursor()
         for data in datas:
             try:
-                sql = "SELECT count(*) FROM data_v1 WHERE link = '%s'" % data["link"]
+                sql = "SELECT count(*) FROM data WHERE link = '%s'" % data["link"]
                 cursor.execute(sql)
                 results = cursor.fetchone()
                 if int(results[0]) == 0:
-                    cursor.execute('insert into data_v1 values(null, "%s","%s", "%s", "%s", "%s", "%s", "%s", "%s")' % \
+                    cursor.execute('insert into data values(null, "%s","%s", "%s", "%s", "%s", "%s", "%s", "%s")' % \
                      (pymysql.escape_string(data["link"]), \
                         pymysql.escape_string(data["subject"]), \
                         pymysql.escape_string(data["quantity"]), \
@@ -122,7 +122,7 @@ def export_data():
         try:
             while True:
                 start_idx = (page - 1) * page_size
-                sql = "SELECT * FROM data_v1 Limit %d,%d" % (start_idx, page_size)
+                sql = "SELECT * FROM data Limit %d,%d" % (start_idx, page_size)
                 cursor.execute(sql)
                 # 获取所有记录列表
                 results = cursor.fetchall()
@@ -169,5 +169,5 @@ def read_file(file):
     return con
 
 if __name__ == "__main__":
-    #main()
-    export_data()
+    main()
+    #export_data()
