@@ -15,20 +15,22 @@ import hashlib
 
 def main():
     try:
-        crawl_url("mask", 1212)
+        crawl_url("mask", 1)
     except:
         print('main:' + traceback.format_exc())
 
 def crawl_url(keyworks, start):
     browser = False
     try:
-        url = 'https://sourcing.alibaba.com/rfq_search_list.htm?spm=a2700.8073608.1998677539.2.60c565aasDkd3v&searchText=%s&openTime=24h' % keyworks
+        url = 'https://sourcing.alibaba.com/rfq_search_list.htm?spm=a2700.8073608.1998677539.1.7c7065aan1xAMt&searchText=%s&openTime=12h' % keyworks
         options = Options()
         options.add_argument('--headless')
-        browser = webdriver.Firefox(executable_path = 'D:/geckodriver.exe', options=options)
+
+        browser = webdriver.Chrome(executable_path="D:\chromedriver",options=options)
+        #browser = webdriver.Firefox(executable_path = 'D:/geckodriver.exe', options=options)
         print("-------------crawl start-------------")
 
-        for i in range(start, 251):
+        for i in range(start, 82):
             browser.get("%s&page=%d" % (url, i))
             WebDriverWait(browser, 10).until(EC.visibility_of_any_elements_located((By.CSS_SELECTOR,'.rfqSearchList')))
             pageSource = browser.page_source
@@ -86,7 +88,7 @@ def parse_data(content):
 
 def wirte_mysql(datas):
     try:
-        db = MySQLdb.connect("106.14.127.145", "kaifa", "yB8FtzFSlSa5QYE0vzd8", "jzic_crawl_data_v2", charset='utf8' )
+        db = MySQLdb.connect("localhost", "root", "root", "jzic_crawl_data_v2", charset='utf8' )
         cursor = db.cursor()
         for data in datas:
             try:
@@ -115,7 +117,7 @@ def wirte_mysql(datas):
 def export_data():
     try:
         datas = []
-        db = MySQLdb.connect("106.14.127.145", "kaifa", "yB8FtzFSlSa5QYE0vzd8", "jzic_crawl_data_v2", charset='utf8')
+        db = MySQLdb.connect("localhost", "root", "root", "jzic_crawl_data_v2", charset='utf8')
         cursor = db.cursor()
         page = 1
         page_size = 1000
@@ -169,5 +171,5 @@ def read_file(file):
     return con
 
 if __name__ == "__main__":
-    main()
-    #export_data()
+   #main()
+   export_data()
