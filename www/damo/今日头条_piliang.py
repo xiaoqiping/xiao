@@ -10,7 +10,7 @@ from Base_piliang import Base_piliang
 class toutiao(Base_piliang):
     def __init__(self):
         #Base_piliang.__init__(self,'https://www.toutiao.com/')
-        super(toutiao, self).__init__('https://www.toutiao.com/',1)
+        super(toutiao, self).__init__('https://www.toutiao.com/',2)
 
     def ping_lun(self):
         # 获取当前窗口的句柄

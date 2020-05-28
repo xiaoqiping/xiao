@@ -1,18 +1,20 @@
-import pyecharts.options as opts
-from pyecharts.charts.basic_charts import bar
+#!/usr/bin/python3.8
+# -*- coding: UTF-8 -*-
+path = r'D:\config.json'
 
-attr = ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-v1 = [5, 20, 36, 10, 75, 90]
-v2 = [10, 25, 8, 60, 20, 80]
+file=open(r'D:\new_config.json','a', encoding='utf_8')
 
-bar = (
-    bar.Bar()
-        .add_xaxis(attr)
-        .add_yaxis("商家A", v1, stack="stack1")
-        .add_yaxis("商家B", v2, stack="stack1")
-        .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
-        .set_global_opts(title_opts=opts.TitleOpts(title="柱状图数据堆叠示例"))
-)
+with open(path, 'r', encoding='utf-8') as f:
+    for line in f:
+        value = line[:-1]  # 去掉换行符
 
-bar.render("bar_stack.html")
+        value = value.replace(" ", "")
+        print(value)
+        file.write(value)
+
+file.close()
+
+
+
+
 

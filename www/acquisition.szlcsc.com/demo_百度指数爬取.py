@@ -54,6 +54,7 @@ class BaiduIndex:
         url = 'http://index.baidu.com/api/SearchApi/index?' + urlencode(request_args)
         html = self.http_get(url)
         datas = json.loads(html)
+        print(datas)
 
         uniqid = datas['data']['uniqid']
         encrypt_datas = []
