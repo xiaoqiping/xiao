@@ -6,6 +6,7 @@ class mysql(object):
     conn = None
 
     #def __init__(self, host='rm-uf6re21762d887t2c.mysql.rds.aliyuncs.com', user='jzdzzj', password='2W5NwPcm2BZPgQ2arJkc', db='jzic_crawl_data', charset='utf8', port=3306):
+    #def __init__(self, host='rm-uf64ndm2pffgn79rnmo.mysql.rds.aliyuncs.com', user='test_user',password='FIysHefhUDHt422QSXlW', db='jzic_crawl_data', charset='utf8', port=3306):
     def __init__(self, host='106.14.127.145', user='kaifa', password='yB8FtzFSlSa5QYE0vzd8',db='jzic_crawl_data', charset='utf8', port=3306):
 
         self.host = host

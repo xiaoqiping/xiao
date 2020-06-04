@@ -1,6 +1,6 @@
 #!/bin/bash
 #文件名
-FILE_NAME='/home/wwwroot/www/log.txt'
+FILE_NAME='/home/web/pythonwww/log.txt'
 #获取文件做后修改时间戳
 a=`stat -c %Y  $FILE_NAME`
 #格式化时间戳
@@ -10,14 +10,14 @@ b=`date +%s`
 
 pid=`ps aux|grep demo_requests_login|grep -v grep|awk '{print $2}'`	
 echo pid
-if [ -z $pid ];then
+if [[ -z $pid ]];then
 	echo "进程不存在"
-	#python3.8 /home/wwwroot/www/demo_requests_login.py	
+	#python3.8 /home/web/pythonwww/demo_requests_login.py
 else	
 	if [ $[$b - $a] -gt 60 ];then		
 		echo "间隔时间大于60秒"
 		kill -9 $pid
-		python3.8 /home/wwwroot/www/demo_requests_login.py
+		python3.8 /home/web/pythonwww/demo_requests_login.py
 	else
 		echo "间隔时间"
 	    echo  $[$b - $a]

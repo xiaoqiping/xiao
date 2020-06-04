@@ -155,7 +155,7 @@ def data_goodslist():
             print("=============================正在处理分类："+str(i[2])+"总共******"+str(pagenun)+"******页，每页30条")
             p =i[10]+1
             for ii in  range(p,pagenun+1):
-                # nf = open("/home/wwwroot/www/log.txt", "w")
+                # nf = open("/home/web/pythonwww/log.txt", "w")
                 # nf.write(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                 # nf.close()
 
@@ -236,6 +236,7 @@ def data_goodslist():
                     if not len(szlcsc_goods_sale_info):
                         inset_tmp = {
                             'szlcsc_goods_id': int(iii['productId']),
+                            'productName': db.conn.escape_string(iii['productName']),
                             'szlcsc_goods_module_no':db.conn.escape_string(iii['productModel']),
                             'szlcsc_goods_name': db.conn.escape_string(iii['remarkPrefix']+iii['lightProductIntro']),
                             'szlcsc_goods_no': db.conn.escape_string(iii['lightProductCode']),
@@ -283,12 +284,13 @@ def data_goodslist():
                         }
                         sale_num_change_log_inset_data.append(tuple(list(sale_num_change_log_inset_tmp.values())))
                         print("===========================为新增型号追加到插入队列中")
-                    elif int(szlcsc_goods_sale_info[18]) == int(szlcsc_task_info[0]):
+                    elif int(szlcsc_goods_sale_info[22]) == int(szlcsc_task_info[0]):
                         print("szlcsc_sale_id:"+str(szlcsc_goods_sale_info[0])+":已更新为当前任务版本 不重复处理，跳出")
                         continue
                     else:
                         print("szlcsc_sale_id:" + str(szlcsc_goods_sale_info[0]) + ":数据更新")
                         update_tmp = {
+                            'productName': db.conn.escape_string(iii['productName']),
                             'szlcsc_goods_module_no': db.conn.escape_string(iii['productModel']),
                             'szlcsc_goods_name': db.conn.escape_string(iii['remarkPrefix'] + iii['lightProductIntro']),
                             'szlcsc_goods_no': db.conn.escape_string(iii['lightProductCode']),
@@ -310,7 +312,7 @@ def data_goodslist():
                         }
                         # print(tuple(list(inset_tmp.values())))
                         update_data.append(tuple(list(update_tmp.values())))
-                        if (szlcsc_goods_sale_info[14] != update_tmp['szlcsc_ladder_quantity'] or float(szlcsc_goods_sale_info[15]) != float(update_tmp['szlcsc_min_ladder_price'])):
+                        if (szlcsc_goods_sale_info[15] != update_tmp['szlcsc_ladder_quantity'] or float(szlcsc_goods_sale_info[16]) != float(update_tmp['szlcsc_min_ladder_price'])):
                             # 价格日志
                             price_change_log_update_tmp = {
                                 'szlcsc_goods_id': int(iii['productId']),
@@ -320,7 +322,7 @@ def data_goodslist():
                                 'change_time': now,
                             }
                             price_change_log_update_data.append(tuple(list(price_change_log_update_tmp.values())))
-                        if int(szlcsc_goods_sale_info[13]) != int(update_tmp['szlcsc_sale_stock']):
+                        if int(szlcsc_goods_sale_info[14]) != int(update_tmp['szlcsc_sale_stock']):
                             # 库存日志
                             stock_change_log_update_tmp = {
                                 'szlcsc_goods_id': int(iii['productId']),
@@ -329,7 +331,7 @@ def data_goodslist():
                                 'change_time': now,
                             }
                             stock_change_log_update_data.append(tuple(list(stock_change_log_update_tmp.values())))
-                        if int(szlcsc_goods_sale_info[13]) != int(update_tmp['szlcsc_sale_stock']):
+                        if int(szlcsc_goods_sale_info[14]) != int(update_tmp['szlcsc_sale_stock']):
                             # 销量日志
                             sale_num_change_log_update_tmp = {
                                 'szlcsc_goods_id': int(iii['productId']),
@@ -347,10 +349,10 @@ def data_goodslist():
                     try:
                         db.connect()
                         #商品数据插入
-                        sql = "INSERT INTO cj_szlcsc_goods_sale (`szlcsc_goods_id`,`szlcsc_goods_module_no`, `szlcsc_goods_name`, `szlcsc_goods_no`" \
+                        sql = "INSERT INTO cj_szlcsc_goods_sale (`szlcsc_goods_id`,`productName`,`szlcsc_goods_module_no`, `szlcsc_goods_name`, `szlcsc_goods_no`" \
                               ",`szlcsc_category_id`, `szlcsc_category_name`, `szlcsc_brand_id`, `szlcsc_brand_name`, `szlcsc_goods_unit`, `szlcsc_min_packing`" \
                               ", `szlcsc_goods_package`, `szlcsc_sale_num`, `szlcsc_sale_stock`, `szlcsc_ladder_quantity`, `szlcsc_min_ladder_price`, `from_url`, `create_time`, `task_id`, `szlcsc_desc`)" \
-                              " VALUES (%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s);"
+                              " VALUES (%s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s);"
                         print(inset_data)
                         #results = db.insert(sql, inset_data)
                         results = db.cursor.executemany(sql, inset_data)
@@ -412,7 +414,7 @@ def data_goodslist():
                         db.connect()
                         # 商品数据更新
                         sale_sql = "update cj_szlcsc_goods_sale set " \
-                                   "szlcsc_goods_module_no=%s,szlcsc_goods_name=%s,szlcsc_goods_no=%s,szlcsc_category_id=%s,szlcsc_category_name=%s,szlcsc_brand_id=%s,szlcsc_brand_name=%s" \
+                                   "productName=%s,szlcsc_goods_module_no=%s,szlcsc_goods_name=%s,szlcsc_goods_no=%s,szlcsc_category_id=%s,szlcsc_category_name=%s,szlcsc_brand_id=%s,szlcsc_brand_name=%s" \
                                    ",szlcsc_goods_unit=%s,szlcsc_min_packing=%s,szlcsc_goods_package=%s,szlcsc_sale_num=%s,szlcsc_sale_stock=%s,szlcsc_ladder_quantity=%s,szlcsc_min_ladder_price=%s" \
                                    ",update_time=%s,task_id=%s,szlcsc_desc=%s" \
                                    " where (`szlcsc_sale_id` = %s)"

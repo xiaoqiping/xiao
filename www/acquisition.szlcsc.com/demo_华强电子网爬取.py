@@ -21,11 +21,97 @@ now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 location = 'file/气象数据家园/fake_useragent.json'
 ua = UserAgent(path=location)
 
+
+def data_category():
+    db = mysql(host=mysql_config['host'], user=mysql_config['user'], password=mysql_config['password'],db=mysql_config['db'])
+
+    url = 'https://www.hqew.com/'
+    response = requests.get(url)
+    response.encoding = response.apparent_encoding
+    bs = BeautifulSoup(response.text, "html.parser")
+    category_level_1 = bs.find(class_="category-title").find_all('a')
+
+    if(len(category_level_1) <=0):
+        print("分类数据不存在")
+        return False;
+
+    #查询版本信息
+    szlcsc_task_info = db.get_one("SELECT * FROM `cj_collection_company_task` where status = 1 and name = '华强电子网数据采集' ORDER BY `task_id` DESC LIMIT 1", params=())
+    if szlcsc_task_info == None:
+        print(szlcsc_task_info)
+        print("任务不存在")
+        return False;
+    cj_szlcsc_category_list = db.get_one("SELECT * FROM `cj_hqew_category` where category_level = 1 and status = 1 and task_id = " + str(szlcsc_task_info[0]) + "  LIMIT 1", params=())
+    if cj_szlcsc_category_list :
+        print("已经更新为当前版本分类数据")
+        return False;
+    #分类数据
+    category= [];
+    for i in category_level_1:
+        data = {
+            'id': 0,
+            'pid': 0,
+            'name': i.text,
+            'goods_num':0,
+            'category_level': 1,
+            'from_url': i.get('href').replace('.html', ''),
+            'create_time': now,
+            'task_id': szlcsc_task_info[0],
+        }
+
+        if  data['from_url'] == 'https://gys.hqew.com/search/电感器':
+            data['id'] = '20001009'
+        elif data['from_url'] == 'https://gys.hqew.com/search/磁珠':
+            data['id'] = '200010090016'
+        else:
+            id = re.findall(r'\b\d+\b', data['from_url'])
+            data['id'] = id[0];
+
+        response = requests.get(i.get('href'))
+        response.encoding = response.apparent_encoding
+        bs = BeautifulSoup(response.text, "html.parser")
+        goods_num = bs.find(class_="right-total").find('span').text
+        data['goods_num'] = goods_num;
+        print(data)
+        category.append(tuple(list(data.values())))
+
+
+    if (len(category) <= 0):
+        print("没有可提交的数据")
+        return False;
+
+    try:
+        #先清除分类数据，重新爬取最新数据
+        category_sql = " truncate  table cj_hqew_category;"
+        category_results = db.edit(category_sql, ())
+        #print(category_results)
+        if category_results == None:
+            # 创建异常对象
+            ex = Exception("清除分类数据失败")
+            # 抛出异常对象
+            raise ex
+
+        sql = "INSERT INTO cj_hqew_category (`id`,`pid`,`name`,`goods_num`,`category_level`,`from_url`,`create_time`,`task_id`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
+        results = db.insert(sql,category)
+        print(results)
+        if results == None:
+            # 创建异常对象
+            ex = Exception("插入分类数据失败")
+            # 抛出异常对象
+            raise ex
+
+    except Exception  as result:
+        print(result)
+        db.connect()
+        db.conn.rollback()
+
+
+
 #任务处理
 def cj_task():
     db = mysql(host=mysql_config['host'], user=mysql_config['user'], password=mysql_config['password'],db=mysql_config['db'])
     # 查询版本信息
-    task_info = db.get_one("SELECT * FROM `cj_collection_company_task` where status = 1 ORDER BY `task_id` DESC LIMIT 1",params=())
+    task_info = db.get_one("SELECT * FROM `cj_collection_company_task` where status = 1 and name = '华强电子网数据采集' ORDER BY `task_id` DESC LIMIT 1",params=())
     if task_info:
         print("存在未处理完的任务继续处理")
     else:
@@ -142,7 +228,7 @@ def data_goodslist():
                             headers = {
                                 "user-agent": ua.random,
                             }
-                            email_r = requests.get('http://zongxinda.hqew.com/',headers=headers, data={}, timeout=(6.05, 27.05))
+                            email_r = requests.get(href,headers=headers, data={}, timeout=(6.05, 27.05))
                             email_r.raise_for_status()  # 如果响应状态码不是 200，就主动抛出异常
                             email_bs = BeautifulSoup(email_r.text, "html.parser")
                             if(email_bs.find(class_="company-info-contact") != None):
@@ -240,9 +326,9 @@ def data_goodslist():
                 print('==========================处理分页变更成功')
 
                 #处理完一页出具延迟10秒
-                print('==========================延时等待5秒钟再处理')
-                for n in range(3):
-                    print("3秒倒计时==========================" + str(3 - n)),
+                print('==========================延时等待2秒钟再处理')
+                for n in range(2):
+                    print("3秒倒计时==========================" + str(2 - n)),
                     time.sleep(1)
 
             category_sql = "UPDATE `cj_hqew_category` SET `status` = '2',`update_time`='"+str(now)+"'  WHERE(`id` = '"+str(i[0])+"')"
@@ -290,7 +376,6 @@ if __name__ == '__main__':
     # 判断商品是否存在
     # def is_in_szlcsc_goods_sale_arr(arr, key):
     cj_task()
+    data_category()
     data_goodslist()
     # szlcsc_goods_sale_where_in_arr()
-
-
