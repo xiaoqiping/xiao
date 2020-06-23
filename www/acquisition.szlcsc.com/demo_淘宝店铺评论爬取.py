@@ -2,15 +2,15 @@
 # -*- coding: UTF-8 -*-
 
 import requests,json
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 import re
-import datetime
+# import datetime
 import time
-import math
-import collections
-from datetime import timedelta
-import sys
-import os
+# import math
+# import collections
+# from datetime import timedelta
+# import sys
+# import os
 
 from mysql import mysql
 
