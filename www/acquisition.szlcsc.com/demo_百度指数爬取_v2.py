@@ -15,6 +15,7 @@ import pandas as pd
 import csv
 
 COOKIES = input("请输入COOKIES,没有按默认值,输完之后请按回车键确认:")
+#COOKIES = ''
 stat_time =   input("请输入需要开始日期，例如 '2020-03-15' ,输完之后请按回车键确认:")
 end_time =   input("请输入需要结束日期，例如 '2020-04-04' ,输完之后请按回车键确认:")
 
@@ -27,7 +28,7 @@ if not end_time:
     end_time = input("请输入结束日期，例如 '2020-04-04' ,输完之后请按回车键确认:")
 
 if not COOKIES:
-    COOKIES = 'BAIDUID=49AC6D4C0D47962D5F7152B3982A89FC:FG=1; BIDUPSID=49AC6D4C0D47962D5F7152B3982A89FC; PSTM=1585538243; BDUSS=GdFSkxVcGRpSzJrfnRnSWUzTlJ-LTkwVm9jQ2c2SlJ5VmNHN0N2djdtazF-S2hlRVFBQUFBJCQAAAAAAAAAAAEAAACpBMgANDYwOTU5MjYwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADVvgV41b4FeU; MCITY=-309%3A; BDRCVFR[br4t9dKzX5c]=aeXf-1x8UdYcs; H_PS_PSSID=; delPer=0; PSINO=2; BDORZ=FFFB88E999055A3F8A630C64834BD6D0; Hm_lvt_d101ea4d2a5c67dab98251f0b5de24dc=1585891864,1585892661,1585892666,1586136159; Hm_lpvt_d101ea4d2a5c67dab98251f0b5de24dc=1586136159'
+    COOKIES = 'BAIDUID=AE1B430D65BE3000B49C10B834E5F81D:FG=1; PSTM=1585049612; BIDUPSID=805B4CE49AC18314A18FF700E178036B; BDUSS=FRlZkE4UXU2WEN4eFBsdEpXeWU3ZzYxQ1dDQ2VPUXNXRkUwVk4yfnQtb09KdnhlSVFBQUFBJCQAAAAAAAAAAAEAAAA0KLMkeGlhb3FpcGluZzMwMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6Z1F4OmdReR; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; MCITY=-340%3A; H_PS_PSSID=; Hm_lvt_d101ea4d2a5c67dab98251f0b5de24dc=1592912238;'
 
 PROVINCE_CODE = {'山东': '901', '贵州': '902', '江西': '903', '重庆': '904', '内蒙古': '905', '湖北': '906', '辽宁': '907', '湖南': '908', '福建': '909', '上海': '910', '北京': '911', '广西': '912', '广东': '913', '四川': '914', '云南': '915', '江苏': '916', '浙江': '917', '青海': '918', '宁夏': '919', '河北': '920', '黑龙江': '921', '吉林': '922', '天津': '923', '陕西': '924', '甘肃': '925', '新疆': '926', '河南': '927', '安徽': '928', '山西': '929', '海南': '930', '台湾': '931', '西藏': '932', '香港': '933', '澳门': '934'}
 
@@ -36,7 +37,7 @@ headers = {
     'Host': 'index.baidu.com',
     'Connection': 'keep-alive',
     'X-Requested-With': 'XMLHttpRequest',
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36',
 }
 
 class BaiduIndex:
@@ -117,12 +118,14 @@ class BaiduIndex:
         :end_date; str, 2018-10-01
         :keyword; list, ['1', '2', '3']
         """
+        word = '[[{"name":"'+keywords[0]+'","wordType":1}]]'
         request_args = {
-            'word': ','.join(keywords),
+            'word':word,
             'startDate': start_date.strftime('%Y-%m-%d'),
             'endDate': end_date.strftime('%Y-%m-%d'),
             'area': self._area,
         }
+
         url = 'http://index.baidu.com/api/SearchApi/index?' + urlencode(request_args)
         html = self._http_get(url)
         datas = json.loads(html)
@@ -149,7 +152,8 @@ class BaiduIndex:
         """
             格式化堆在一起的数据
         """
-        keyword = str(data['word'])
+
+        keyword = str(data['word'][0]['name'])
         time_length = len(data['all']['data'])
         start_date = data['all']['startDate']
         cur_date = datetime.datetime.strptime(start_date, '%Y-%m-%d')
@@ -185,6 +189,7 @@ class BaiduIndex:
         """
         headers['Cookie'] = cookies
         response = requests.get(url, headers=headers, timeout=5)
+
         if response.status_code != 200:
             raise requests.Timeout
         return response.text
@@ -245,8 +250,26 @@ class BaiduIndex:
             res_list.append(one_data_list[i])
         return res_list
 
+
+def token_check():
+    code_name = 'baidu_index_v2_config'
+    code = 'C7BC52B2D53115267CD1AC9662ADE22EYUQDHGTLB'
+    try:
+       url = 'http://39.100.113.43:9000/key.php'
+       response = requests.get(url, timeout=(6.05, 27.05), params={"code_name": code_name, 'code': code})
+       response.raise_for_status()
+       response.encoding = response.apparent_encoding
+       if response.text != '200':
+            print("操作失败请联系管理员")
+            exit()
+    except requests.RequestException as e:
+       print("操作失败请联系管理员")
+       exit()
+
+
 if __name__ == "__main__":
-    # # 建立csv文件，保存数据
+    token_check()
+    # # # 建立csv文件，保存数据
     # csvFile = open(r'file/百度指数/senlin_down.csv', 'a+', newline='', encoding='utf_8_sig')
     # # csvFile.write(codecs.BOM_UTF8)
     # writer = csv.writer(csvFile)
@@ -256,13 +279,15 @@ if __name__ == "__main__":
     keywordlist = BaiduIndex.list_spilt(one_data_list)
     for i in range(0,len(keywordlist)):
         keywords = [keywordlist[i]]
-        baidu_index = BaiduIndex(keywords, stat_time, end_time)
-        result_data=[]
+        print(CITY_CODE)
+        for c in CITY_CODE:
+            print(c)
+            baidu_index = BaiduIndex(keywords, stat_time, end_time,CITY_CODE[c])
+            result_data=[]
+            for index in baidu_index.get_index():
+                result_data.append(index)
+                print(index)
+                df = pd.DataFrame(result_data)
+                df.to_csv(r"file/百度指数/file/%s.csv"%(keywords[0]+'_'+str(c)),encoding='utf-8-sig')
 
-        for index in baidu_index.get_index():
-            result_data.append(index)
-            print(index)
-            df = pd.DataFrame(result_data)
-            df.to_csv(r"file/百度指数/%s.csv"%keywords[0],encoding='utf-8-sig')
-
-            # writer.writerow((index['keyword'], index['type'],index['index'], index['date']))
+                # writer.writerow((index['keyword'], index['type'],index['index'], index['date']))
